@@ -9,6 +9,7 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
+            AllStores storeList = new AllStores();
             Location walmart = new Location("Walmart", 0);
             AllStores.LocationList.Add(walmart);
             Location mcdonalds = new Location("Mcdonalds", 1);
@@ -71,7 +72,7 @@ namespace ConsoleApp
         {
             foreach (Location l in AllStores.LocationList)
             {
-                Console.WriteLine("Location Name: " + Location.LocationName + "\n");
+                Console.WriteLine("Location Name: " + Location.LocationName + "Location ID: " + Location.LocationId);
             }
         }
 
