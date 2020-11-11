@@ -6,22 +6,22 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 {
     public class Product
     {
+        private string _title;
+        private double _price;
+        private int _quantity;
 
-        public static string Title { get; set; }
-        public static double Price { get; set; }
-        public static int Quantity { get; set; }
+        public string Title { get => _title; private set => _title = value; }
+        public double Price { get => _price; private set => _price = value; }
+        public int Quantity { get => _quantity; private set => _quantity = value; }
 
-        public int locationID { get; set; }
 
         public Product(string title, double price, int quantity)
 
         {
-            locationID = Location.LocationId;
             Title = title;
             Price = price;
             Quantity = quantity;
         }
 
-        
     }
 }

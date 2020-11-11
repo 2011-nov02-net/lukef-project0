@@ -6,29 +6,21 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 {
     public class Location
     {
+        private List<Product> _productlist = new List<Product>();
+        private string _locationname;
 
-        public static List<Product> ProductList { get; set; }
+        public List<Product> ProductList { get => _productlist; private set => _productlist = value; }
 
-        public static List<Customer> CustomerList { get; set; }
+        public string LocationName { get => _locationname; private set => _locationname = value; }
 
-        public static List<Order> OrderList { get; set; }
-
-        public static string LocationName { get; set; }
-
-        public static int LocationId { get; set; }
-
-        public Location(string locationName, int locationId)
+        public Location(string locationName)
         {
-            LocationId = locationId;
             LocationName = locationName;
-            ProductList = new List<Product>();
-            CustomerList = new List<Customer>();
-            OrderList = new List<Order>();
         }
 
-        
 
-        
+
+
 
     }
 }
