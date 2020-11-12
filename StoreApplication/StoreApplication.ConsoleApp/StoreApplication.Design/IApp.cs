@@ -8,15 +8,10 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
     {
         void AddCustomer(Customer customer);
 
-        void AddLocation(Location location);
-
         void AddOrder(Order order);
 
-        void AddProductLocation(Location location, List<Product> product);
 
         void PrintStoreOrderHistory();
-
-        void PrintCustomerOrderHistory();
 
         void SearchCustomerByName();
 
