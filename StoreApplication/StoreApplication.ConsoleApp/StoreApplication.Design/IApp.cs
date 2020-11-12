@@ -12,5 +12,14 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 
         void AddOrder(Order order);
 
+        void AddProductLocation(Location location, List<Product> product);
+
+        void PrintStoreOrderHistory();
+
+        void PrintCustomerOrderHistory();
+
+        void SearchCustomerByName();
+
+
     }
 }

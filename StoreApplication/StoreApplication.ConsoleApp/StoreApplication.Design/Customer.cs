@@ -6,17 +6,16 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 {
     public class Customer
     {
-        public int _customerid = 0;
-        private string _customername;
+        private string _firstname;
+        private string _lastname;
 
-        public string CustomerName { get => _customername; private set => _customername = value; }
+        public string FirstName { get => _firstname; private set => _firstname = value; }
+        public string LastName { get => _lastname; private set => _lastname = value; }
 
-        public Customer(string customerName, int customerId)
+        public Customer(string firstName, string lastName)
         {
-            customerId = _customerid;
-            CustomerName = customerName;
-            _customerid += 1;
-
+            FirstName = firstName;
+            LastName = lastName;
         }
 
     }

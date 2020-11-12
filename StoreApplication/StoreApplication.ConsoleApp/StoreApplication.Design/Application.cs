@@ -35,10 +35,35 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 
         void IApp.AddOrder(Order order)
         {
-            if (!_orderlist.Contains(order))
+            if (!_customerlist.Contains(order.customer))
             {
-                _orderlist.Add(order);
+                throw new ArgumentException("That customer is not in our files!");
             }
+            if (!_locationlist.Contains(order.location))
+            {
+                throw new ArgumentException("That location is not in our files!");
+            }
+        }
+
+        void IApp.AddProductLocation(Location location, List<Product> product)
+        { 
+          
+            
+        }
+
+        void IApp.PrintCustomerOrderHistory()
+        {
+
+        }
+
+        void IApp.PrintStoreOrderHistory()
+        {
+
+        }
+
+        void IApp.SearchCustomerByName()
+        {
+
         }
 
 

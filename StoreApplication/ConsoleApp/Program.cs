@@ -14,16 +14,7 @@ namespace ConsoleApp
 
             try
             {
-                app.AddOrder(new Order(
-                    new Location("West Street"),
-                    new Customer("Jerry"),
-                    new List<Product>
-                    {
-                        new Product("lollipop", 1.00, 50),
-                        new Product("cupcake", 3.00, 3),
-                        new Product("muffin", 5.00, 1)
-                    }
-                    ));
+                app.AddCustomer(new Customer("Luke", "Fisher"));
 
             }
             catch (ArgumentException e)
@@ -32,109 +23,88 @@ namespace ConsoleApp
             }
 
 
-            //Console.WriteLine("Welcome to my Store application! You must fill you inventory first");
-            //int UserInput = chooseInput();
+            Console.WriteLine("Welcome to my Store application! You must fill you inventory first");
+            int UserInput = chooseInput();
 
-            //while (UserInput != 0)
-            //{
-            //    switch (UserInput)
-            //    {
-            //        case 1:
+            while (UserInput != 0)
+            {
+                switch (UserInput)
+                {
+                    case 1:
 
+                        Console.WriteLine("Let's add a new store!");
 
-            //            Console.WriteLine("Let's add some inventory to a store!");
+                        string LocationName = "";
 
-            //            int LocationId = 0;
+                        Console.WriteLine("What is the name if your store?");
+                        LocationName = Console.ReadLine();
 
-            //            Console.WriteLine("Which store are you adding to? [Please type its ID number]");
-            //            printLocationList();
-            //            LocationId = int.Parse(Console.ReadLine());
+                        app.AddLocation(new Location(LocationName));
+                        Console.WriteLine("{1} was added to Stores!", LocationName);
 
-            //            string Title = "";
+                        break;
 
-            //            Console.WriteLine("What is your product?");
-            //            Title = Console.ReadLine();
+                    case 2:
 
-            //            double Price = 0;
+                        Console.WriteLine("Let's add some inventory to a store!");
 
-            //            Console.WriteLine("What is the price of the product?");
-            //            Price = double.Parse(Console.ReadLine());
+                        int LocationId = 0;
 
-            //            int Quantity = 0;
+                        Console.WriteLine("Which store are you adding to? [Please type its ID number]");
+                        LocationId = int.Parse(Console.ReadLine());
 
-            //            Console.WriteLine("How many of of this product are you adding?");
-            //            Quantity = int.Parse(Console.ReadLine());
+                        string Title = "";
 
-            //            Product prod = new Product(Title, Price, Quantity);
+                        Console.WriteLine("What is your product?");
+                        Title = Console.ReadLine();
 
-            //            Location.ProductList.Add(prod);
+                        double Price = 0;
 
-            //            printProductList();
-            //            break;
+                        Console.WriteLine("What is the price of the product?");
+                        Price = double.Parse(Console.ReadLine());
 
-            //        case 2:
+                        int Quantity = 0;
 
-            //            Console.WriteLine("Let's add a customer!");
+                        Console.WriteLine("How many of of this product are you adding?");
+                        Quantity = int.Parse(Console.ReadLine());
 
-            //            int CustomerID = 0;
+                        Product prod = new Product(Title, Price, Quantity);
+                        break;
 
-            //            string CustomerName = "";
+                    case 3:
 
+                        Console.WriteLine("Let's add a customer!");
 
-            //            Console.WriteLine("What is the customer's name?");
-            //            CustomerName = Console.ReadLine();
-
-            //            Console.WriteLine("Where store will they be shopping at?");
-
-
-            //            Customer cust = new Customer(CustomerName, CustomerID);
+                        string FirstName = "";
+                        string LastName = "";
 
 
+                        Console.WriteLine("What is the customer's first name?");
+                        FirstName = Console.ReadLine();
+
+                        Console.WriteLine("What is the customer's last name?");
+                        LastName = Console.ReadLine();                       
+
+                        app.AddCustomer(new Customer(FirstName, LastName));
+                        Console.WriteLine("{1} {2} was added!", FirstName, LastName);
+
+                        break;
+
+                }
+                UserInput = chooseInput();
+            }
 
 
+        }               
 
+        public static int chooseInput()
+        {
+            int input = 0;
+            Console.WriteLine("Choose {0} to quit \n {1} to add a new store \n {2} to add inventory to a store \n {3} to add a new customer\n and {4} to create a new order!");
 
-
-
-
-
-
-
-
-
-            //}
-            //UserInput = chooseInput();
-            //}           
-
-
+            input = int.Parse(Console.ReadLine());
+            return input;
         }
-
-
-        //private static void printLocationList()
-        //{
-        //    foreach (Location l in AllStores.LocationList)
-        //    {
-        //        Console.WriteLine("Location Name: " + Location.LocationName + "Location ID: " + Location.LocationId);
-        //    }
-        //}
-
-        //private static void printProductList()
-        //{ 
-        //    foreach (Product p in Location.ProductList)
-        //    {
-        //        Console.WriteLine("Product Name: " + Product.Title + "\n");
-        //    }
-        //}
-
-        
-
-        //static public int chooseInput()
-        //{
-        //    int input = 0;
-        //    Console.WriteLine("Choose {0} to quit, {1} to add inventory to a store, {2} to add a new customer, and {3} to create a new order!");
-
-        //    input = int.Parse(Console.ReadLine());
-        //    return input;
-        //}
     }
 }
+ 
