@@ -15,7 +15,7 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            using var logStream = new StreamWriter("ef-logs.txt");
+            using var logStream = new StreamWriter("proj0-logs.txt");
 
             var optionsBuilder = new DbContextOptionsBuilder<Project0DBContext>();
             optionsBuilder.UseSqlServer(getConnectionString());
