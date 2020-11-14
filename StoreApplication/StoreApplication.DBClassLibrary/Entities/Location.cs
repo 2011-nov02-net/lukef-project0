@@ -5,19 +5,18 @@ using System.Collections.Generic;
 
 namespace StoreApplication.DBClassLibrary
 {
-    public partial class Product
+    public partial class Location
     {
-        public Product()
+        public Location()
         {
-            OrderDetails = new HashSet<OrderDetail>();
+            Orders = new HashSet<Order>();
             StoreInventories = new HashSet<StoreInventory>();
         }
 
-        public string ProductId { get; set; }
+        public int LocationId { get; set; }
         public string Name { get; set; }
-        public decimal Price { get; set; }
 
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<StoreInventory> StoreInventories { get; set; }
     }
 }

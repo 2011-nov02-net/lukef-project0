@@ -20,7 +20,6 @@ namespace StoreApplication.DBClassLibrary
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<StoreInventory> StoreInventories { get; set; }
 
@@ -30,7 +29,12 @@ namespace StoreApplication.DBClassLibrary
             {
                 entity.ToTable("Customer", "StoreApp");
 
-                entity.Property(e => e.CustomerId).HasMaxLength(30);
+                entity.HasIndex(e => e.Email, "UQ__Customer__A9D105341F637072")
+                    .IsUnique();
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(150);
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
@@ -45,10 +49,8 @@ namespace StoreApplication.DBClassLibrary
             {
                 entity.ToTable("Location", "StoreApp");
 
-                entity.HasIndex(e => e.Name, "UQ__Location__737584F61F3517F1")
+                entity.HasIndex(e => e.Name, "UQ__Location__737584F6C063C3C1")
                     .IsUnique();
-
-                entity.Property(e => e.LocationId).HasMaxLength(30);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -59,62 +61,32 @@ namespace StoreApplication.DBClassLibrary
             {
                 entity.ToTable("Orders", "StoreApp");
 
-                entity.Property(e => e.OrderId).HasMaxLength(30);
-
-                entity.Property(e => e.CustomerId)
-                    .IsRequired()
-                    .HasMaxLength(30);
-
-                entity.Property(e => e.LocationId)
-                    .IsRequired()
-                    .HasMaxLength(30);
+                entity.Property(e => e.OrderTime)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK__Orders__Customer__656C112C");
+                    .HasConstraintName("FK__Orders__Customer__607251E5");
 
                 entity.HasOne(d => d.Location)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.LocationId)
-                    .HasConstraintName("FK__Orders__Location__6477ECF3");
-            });
-
-            modelBuilder.Entity<OrderDetail>(entity =>
-            {
-                entity.ToTable("OrderDetails", "StoreApp");
-
-                entity.Property(e => e.Id).HasMaxLength(30);
-
-                entity.Property(e => e.OrderId)
-                    .IsRequired()
-                    .HasMaxLength(30);
-
-                entity.Property(e => e.OrderTime).HasColumnType("date");
-
-                entity.Property(e => e.ProductId)
-                    .IsRequired()
-                    .HasMaxLength(30);
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.OrderDetails)
-                    .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK__OrderDeta__Order__68487DD7");
+                    .HasConstraintName("FK__Orders__Location__5F7E2DAC");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany(p => p.OrderDetails)
+                    .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__OrderDeta__Produ__693CA210");
+                    .HasConstraintName("FK__Orders__ProductI__6166761E");
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product", "StoreApp");
 
-                entity.HasIndex(e => e.Name, "UQ__Product__737584F658549A29")
+                entity.HasIndex(e => e.Name, "UQ__Product__737584F619F0E0C0")
                     .IsUnique();
-
-                entity.Property(e => e.ProductId).HasMaxLength(30);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -127,25 +99,15 @@ namespace StoreApplication.DBClassLibrary
             {
                 entity.ToTable("StoreInventory", "StoreApp");
 
-                entity.Property(e => e.StoreInventoryId).HasMaxLength(30);
-
-                entity.Property(e => e.LocationId)
-                    .IsRequired()
-                    .HasMaxLength(30);
-
-                entity.Property(e => e.ProductId)
-                    .IsRequired()
-                    .HasMaxLength(30);
-
                 entity.HasOne(d => d.Location)
                     .WithMany(p => p.StoreInventories)
                     .HasForeignKey(d => d.LocationId)
-                    .HasConstraintName("FK__StoreInve__Locat__6D0D32F4");
+                    .HasConstraintName("FK__StoreInve__Locat__662B2B3B");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.StoreInventories)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__StoreInve__Produ__6E01572D");
+                    .HasConstraintName("FK__StoreInve__Produ__671F4F74");
             });
 
             OnModelCreatingPartial(modelBuilder);

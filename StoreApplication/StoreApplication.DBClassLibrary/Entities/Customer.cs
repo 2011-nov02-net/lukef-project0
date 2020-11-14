@@ -12,9 +12,10 @@ namespace StoreApplication.DBClassLibrary
             Orders = new HashSet<Order>();
         }
 
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Email { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
     }
