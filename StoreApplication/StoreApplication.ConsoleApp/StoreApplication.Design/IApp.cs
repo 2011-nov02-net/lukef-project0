@@ -10,10 +10,13 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 
         void AddOrder(Order order);
 
-
         void PrintStoreOrderHistory();
 
         void SearchCustomerByName();
+
+        void SerializeData(Type datatype, object data, string filePath);
+
+        void DeserializeData(Type datatype, string filePath);
 
 
     }

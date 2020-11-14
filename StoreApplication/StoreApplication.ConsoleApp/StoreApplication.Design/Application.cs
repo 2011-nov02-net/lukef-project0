@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace StoreApplication.ClassLibrary.StoreApplication.Design
 {
@@ -35,6 +37,9 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
             {
                 throw new ArgumentException("That location is not in our files!");
             }
+            
+            
+            
         }
 
         void IApp.PrintStoreOrderHistory()
@@ -45,6 +50,34 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 
         void IApp.SearchCustomerByName()
         {
+
+        }
+
+        void IApp.SerializeData(Type datatype, object data, string filePath)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(datatype);
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            TextWriter writer = new StreamWriter(filePath);
+            xmlSerializer.Serialize(writer, data);
+            writer.Close();
+        }
+
+        void IApp.DeserializeData(Type datatype, string filePath)
+        {
+            object o = null;
+
+            XmlSerializer xmlSerializer = new XmlSerializer(datatype);
+            if(File.Exists(filePath))
+            {
+                TextReader reader = new StreamReader(filePath);
+                o = xmlSerializer.Deserialize(reader);
+                reader.Close();
+            }
+
+            
 
         }
 
