@@ -6,18 +6,20 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 {
     public class Product
     {
-        private string _title;
-        private double _price;
-        private int _quantity;
+        public int ProductId { get; set; }
+        public string Title { get; set; }
+        public double Price { get; set; }
+        public int Quantity { get; set; }
 
-        public string Title { get => _title; private set => _title = value; }
-        public double Price { get => _price; private set => _price = value; }
-        public int Quantity { get => _quantity; private set => _quantity = value; }
+        public Product()
+        {
 
+        }
 
-        public Product(string title, double price, int quantity)
+        public Product(int productId, string title, double price, int quantity)
 
         {
+            ProductId = productId;
             Title = title;
             Price = price;
             Quantity = quantity;

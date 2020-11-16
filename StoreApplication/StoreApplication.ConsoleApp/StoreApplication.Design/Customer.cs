@@ -6,19 +6,23 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 {
     public class Customer
     {
-        private string _firstname;
-        private string _lastname;
-        private int _customerid;
+        public int CustomerId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public Dictionary<Product, int> ShoppingCart { get; set; }
 
-        public string FirstName { get => _firstname; private set => _firstname = value; }
-        public string LastName { get => _lastname; private set => _lastname = value; }
-        public int CustomerId { get => _customerid; private set => _customerid = value; }
+        public Customer()
+        {
 
-        public Customer(string firstName, string lastName, int customerId )
+        }
+
+        public Customer(string firstName, string lastName, string email )
         {
             FirstName = firstName;
             LastName = lastName;
-            CustomerId = customerId;
+            Email = email;
+            ShoppingCart = new Dictionary<Product, int>();
         }
 
     }

@@ -6,15 +6,25 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 {
     public class Location
     {
-        private List<Product> _productlist = new List<Product>();
-        private string _locationname;
 
-        public List<Product> ProductList { get => _productlist; private set => _productlist = value; }
-        public string LocationName { get => _locationname; private set => _locationname = value; }
+        public int LocationId { get; set; }
+        public string Name { get; set; }
+         
 
-        public Location(string locationName)
+        public Dictionary<Product, int> Quantity { get; set; }
+        public Dictionary<Product, decimal> Price { get; set; }
+
+        public Location()
         {
-            LocationName = locationName;
+
+        }
+
+        public Location(int locationId, string name)
+        {
+            LocationId = locationId;
+            Name = name;
+            Quantity = new Dictionary<Product, int>();
+            Price = new Dictionary<Product, decimal>();
         }
 
 

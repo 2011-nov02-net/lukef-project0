@@ -1,18 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using StoreApplication.ClassLibrary.StoreApplication.Design;
 using StoreApplication.DBClassLibrary;
+using StoreApplication.DBClassLibrary.Repositories;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
+using System.Linq;
 using System.Text.Json;
-using System.Xml.Serialization;
 
 namespace ConsoleApp
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             using var logStream = new StreamWriter("proj0-logs.txt");
@@ -22,16 +21,33 @@ namespace ConsoleApp
             optionsBuilder.LogTo(logStream.WriteLine, LogLevel.Information);
 
             using var context = new Project0DBContext(optionsBuilder.Options);
+
             //IApp app = new Application();
+            IStoreRepository storeRepository = new StoreRepository(context);
 
             
+
+            //Display5Customers();
+            Console.WriteLine();
+
+            //UpdateCustomer();
+            //Display5Customers();
+            Console.WriteLine();
+
+            //InsertCustomer();
+            //Display5Customers();
+
+            Console.WriteLine();
+            //DeleteCustomer();
+            //Display5Customers();
+
 
 
         }
 
         static string getConnectionString()
         {
-            string path = "../../../DBConnectionString.json";
+            string path = "../../../../../../DBConnectionString.json";
             string json;
 
             try
@@ -47,14 +63,61 @@ namespace ConsoleApp
             return connectionString;
         }
 
-        public static int chooseInput()
-        {
-            int input = 0;
-            Console.WriteLine("Choose {0} to quit \n {1} to add a new customer\n and {2} to create a new order!");
+        //static void Display5Customers()
+        //{
+        //    using var context = new Project0DBContext(s_dbContextOptions);
 
-            input = int.Parse(Console.ReadLine());
-            return input;
-        }
+        //    IQueryable<StoreApplication.DBClassLibrary.Customer> customers = context.Customers
+        //        .OrderBy(c => c.FirstName)
+        //        .Take(5);
+
+        //    foreach (StoreApplication.DBClassLibrary.Customer customer in customers)
+        //    {
+        //        Console.WriteLine($"{customer.CustomerId} - {customer.FirstName} {customer.LastName}");
+        //    }
+                
+        //}
+
+        //static void UpdateCustomer()
+        //{
+        //    using var context = new Project0DBContext(s_dbContextOptions);
+
+        //    StoreApplication.DBClassLibrary.Customer customer = context.Customers.OrderBy(x => x.FirstName).First();
+
+        //    customer.FirstName += ".";
+
+        //    context.SaveChanges();
+        //}
+
+        //static void InsertCustomer()
+        //{
+        //    using var context = new Project0DBContext(s_dbContextOptions);
+
+        //    var firstCustomer = context.Customers.OrderBy(c => c.FirstName).First();
+        //    string nameOfFirstCustomer = firstCustomer.FirstName;
+
+        //    var customer = new StoreApplication.DBClassLibrary.Customer()
+        //    {
+        //        FirstName = "Dave",
+        //        LastName = "Fisher",
+        //        Email = "dfisher@email.com"
+        //    };
+
+        //    context.Customers.Add(customer);
+
+        //    context.SaveChanges();
+
+        //}
+
+        //static void DeleteCustomer()
+        //{
+        //    using var context = new Project0DBContext(s_dbContextOptions);
+
+        //    var customer = context.Customers.Where(t => t.FirstName == "Dave").First();
+        //    context.Customers.Remove(customer);
+
+        //    context.SaveChanges();
+        //}
 
        
 

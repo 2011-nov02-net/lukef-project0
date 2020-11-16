@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using StoreApplication.ClassLibrary.StoreApplication.Design;
 
 namespace StoreApplication.DBClassLibrary.Repositories
 {
-    class StoreRepository : IStoreRepository
+    public class StoreRepository : IStoreRepository
     {
         
         private readonly Project0DBContext _contextOptions;
@@ -16,191 +17,89 @@ namespace StoreApplication.DBClassLibrary.Repositories
             _contextOptions = contextOptions;
         }
 
-        public void DeleteCustomer(int customerId)
+        public ICollection<ClassLibrary.StoreApplication.Design.Customer> GetCustomerByName(string firstName, string lastName)
         {
-            Customer customer = _contextOptions.Customers.Find(customerId);
-            _contextOptions.Customers.Remove(customer);
-            _contextOptions.SaveChanges();
-        }
+            var dbCustomers = _contextOptions.Customers.ToList();
 
-        public void DeleteLocation(int locationId)
-        {
-            Location location = _contextOptions.Locations.Find(locationId);
-            _contextOptions.Locations.Remove(location);
-            _contextOptions.SaveChanges();
-        }
-
-        public void DeleteOrder(int orderId)
-        {
-            Order order = _contextOptions.Orders.Find(orderId);
-            _contextOptions.Orders.Remove(order);
-            _contextOptions.SaveChanges();
-        }
-
-        public void DeleteProduct(int productId)
-        {
-            Product product = _contextOptions.Products.Find(productId);
-            _contextOptions.Products.Remove(product);
-            _contextOptions.SaveChanges();
-        }
-
-        public Customer GetCustomerById(int customerId)
-        {
-            return _contextOptions.Customers.Find(customerId);
-        }
-
-        public IEnumerable<Order> GetCustomerOrders(Customer customer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Customer> GetCustomers()
-        {
-            return _contextOptions.Customers.ToList();
-        }
-
-        public Location GetLocationById(int locationId)
-        {
-            return _contextOptions.Locations.Find(locationId);
-        }
-
-        public IEnumerable<Order> GetLocationOrders(Location location)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Location> GetLocations()
-        {
-            return _contextOptions.Locations.ToList();
-        }
-
-        public Order GetOrderById(int orderId)
-        {
-            return _contextOptions.Orders.Find(orderId);            
-        }
-
-        public IEnumerable<Order> GetOrders()
-        {
-            return _contextOptions.Orders.ToList();
-        }
-
-        public Product GetProductById(int productId)
-        {
-            return _contextOptions.Products.Find(productId);
-        }
-
-        public IEnumerable<Product> GetProducts()
-        {
-            return _contextOptions.Products.ToList();
-        }
-
-        public int InsertCustomer(Customer customer)
-        {
-            int result = -1;
-
-            if(customer != null)
+            return dbCustomers.Select(c => new ClassLibrary.StoreApplication.Design.Customer()
             {
-                _contextOptions.Customers.Add(customer);
-                _contextOptions.SaveChanges();
-                result = customer.CustomerId;
-            }
-            return result;
+                CustomerId = c.CustomerId,
+                FirstName = c.FirstName,
+                LastName = c.LastName,
+                Email = c.Email
+            }).Where(c => c.FirstName.Contains(firstName, StringComparison.OrdinalIgnoreCase)
+                        && c.LastName.Contains(lastName, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
-        public int InsertLocation(Location location)
+        public List<Order> GetCustomerOrders(ClassLibrary.StoreApplication.Design.Customer customer)
         {
-            int result = -1;
-
-            if(location != null)
+            var dbCustomerOrders = _contextOptions.Orders
+                .Include(or => or.Customer)
+                .Include(or => or.Quantity)
+                .Include(or => or.Product)
+                .Include(or => or.OrderTime)
+                .OrderBy(or => or.OrderTime);
+            List<Order> orders = new List<Order>();
+            foreach(var order in dbCustomerOrders)
             {
-                _contextOptions.Locations.Add(location);
-                _contextOptions.SaveChanges();
-                result = location.LocationId;
+                orders.Add(order);
             }
-            return result;
+
+            return orders;
         }
 
-        public int InsertOrder(Order order)
+        public List<ClassLibrary.StoreApplication.Design.Order> GetLocationOrders(ClassLibrary.StoreApplication.Design.Location location)
         {
-            int result = -1;
-
-            if(order != null)
+            var dbLocationOrders = _contextOptions.Orders
+                .Include(or => or.Location)
+                .Include(or => or.Product)
+                .Include(or => or.Quantity)
+                .Include(or => or.OrderTime)
+                .OrderBy(or => or.OrderTime);
+            List<ClassLibrary.StoreApplication.Design.Order> orders = new List<ClassLibrary.StoreApplication.Design.Order>();
+            foreach(var order in dbLocationOrders)
             {
-                _contextOptions.Orders.Add(order);
-                _contextOptions.SaveChanges();
-                result = order.LocationId;
+                orders.Add(order);
             }
-            return result;
+
+            return orders;
         }
 
-        public int InsertProduct(Product product)
+        public void InsertCustomer(ClassLibrary.StoreApplication.Design.Customer customer)
         {
-            int result = -1;
-
-            if(product != null)
+            var dbCustomer = new Customer()
             {
-                _contextOptions.Products.Add(product);
-                _contextOptions.SaveChanges();
-                result = product.ProductId;
-            }
-            return result;
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Email = customer.Email
+            };
+
+            _contextOptions.Customers.Add(dbCustomer);
         }
 
-        public int UpdateCustomer(Customer customer)
+        public void InsertOrder(ClassLibrary.StoreApplication.Design.Order order)
         {
-            int result = -1;
+            var customer = _contextOptions.Customers.First(c => c.CustomerId == order.Customer.CustomerId);
+            var location = _contextOptions.Locations.First(l => l.LocationId == order.Location.LocationId);
 
-            if (customer != null)
+            var dbOrder = new Order()
             {
-                _contextOptions.Entry(customer).State = EntityState.Modified;
-                _contextOptions.SaveChanges();
-                result = customer.CustomerId;
-            }
-            return result;
+                Customer = customer,
+                Location = location,
+            };
+
+            _contextOptions.Orders.Add(dbOrder);
         }
 
-        public int UpdateInventory(Location location, Product product, int quantity)
+        public void UpdateLocationInventory(Location location, Product product)
         {
-            throw new NotImplementedException();
-        }
+            //StoreInventory storeInventory;
 
-        public int UpdateLocation(Location location)
-        {
-            int result = -1;
+            //storeInventory = _contextOptions.StoreInventories.First(li => li.LocationId == location.LocationId);
+            //storeInventory.Quantity = Location.Quantity[product];
 
-            if (location != null)
-            {
-                _contextOptions.Entry(location).State = EntityState.Modified;
-                _contextOptions.SaveChanges();
-                result = location.LocationId;
-            }
-            return result;
-        }
+            //var dbProduct = _contextOptions.Products.First(pr => pr.ProductId == product.ProductId);
 
-        public int UpdateOrder(Order order)
-        {
-            int result = -1;
-
-            if (order != null)
-            {
-                _contextOptions.Entry(order).State = EntityState.Modified;
-                _contextOptions.SaveChanges();
-                result = order.OrderId;
-            }
-            return result;
-        }
-
-        public int UpdateProduct(Product product)
-        {
-            int result = -1;
-
-            if (product != null)
-            {
-                _contextOptions.Entry(product).State = EntityState.Modified;
-                _contextOptions.SaveChanges();
-                result = product.ProductId;
-            }
-            return result;
         }
     }
 }

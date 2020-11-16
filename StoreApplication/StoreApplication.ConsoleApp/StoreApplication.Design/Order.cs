@@ -6,22 +6,25 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 {
     public class Order
     {
-        private Location _location1;
-        private Customer _customer1;
-        private List<Product> _products = new List<Product>();
 
-        public Location location { get => _location1; private set => _location1 = value; }
-        public Customer customer { get => _customer1; private set => _customer1 = value; }
-        public DateTime OrderTime { get ; private set; }
-        public List<Product> Products { get => _products; private set => _products = value; }
+        public int OrderId { get; set; }
+        public Location Location { get; set; }
+        public Customer Customer { get; set; }
+        public Dictionary<Product, int> Product { get; set; }
+        public DateTime OrderTime { get ; set; }
+        public int Quantity { get; set; }
 
-        public Order(Location loc, Customer cust, List<Product> prod)
+        public Order()
         {
-            location = loc;
-            customer = cust;
-            OrderTime = DateTime.Now;
-            Products = prod;
 
+        }
+
+        public Order(Location location , Customer customer, int quantity)
+        {
+            Location = location;
+            Customer = customer;
+            Product = customer.ShoppingCart;
+            Quantity = quantity;
         }
     }
 }
