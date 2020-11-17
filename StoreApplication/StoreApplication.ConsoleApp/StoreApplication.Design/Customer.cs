@@ -10,7 +10,6 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public Dictionary<Product, int> ShoppingCart { get; set; }
 
         public Customer()
         {
@@ -22,7 +21,6 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
             FirstName = firstName;
             LastName = lastName;
             Email = email;
-            ShoppingCart = new Dictionary<Product, int>();
         }
 
     }

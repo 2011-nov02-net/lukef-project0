@@ -8,21 +8,19 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
     {
         public int ProductId { get; set; }
         public string Title { get; set; }
-        public double Price { get; set; }
-        public int Quantity { get; set; }
+        public decimal Price { get; set; }
 
         public Product()
         {
 
         }
 
-        public Product(int productId, string title, double price, int quantity)
+        public Product(int productId, string title, decimal price)
 
         {
             ProductId = productId;
             Title = title;
             Price = price;
-            Quantity = quantity;
         }
 
     }

@@ -29,7 +29,7 @@ namespace StoreApplication.DBClassLibrary
             {
                 entity.ToTable("Customer", "StoreApp");
 
-                entity.HasIndex(e => e.Email, "UQ__Customer__A9D105341F637072")
+                entity.HasIndex(e => e.Email, "UQ__Customer__A9D105344AF340D6")
                     .IsUnique();
 
                 entity.Property(e => e.Email)
@@ -49,7 +49,7 @@ namespace StoreApplication.DBClassLibrary
             {
                 entity.ToTable("Location", "StoreApp");
 
-                entity.HasIndex(e => e.Name, "UQ__Location__737584F6C063C3C1")
+                entity.HasIndex(e => e.Name, "UQ__Location__737584F699B7C172")
                     .IsUnique();
 
                 entity.Property(e => e.Name)
@@ -68,24 +68,24 @@ namespace StoreApplication.DBClassLibrary
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK__Orders__Customer__607251E5");
+                    .HasConstraintName("FK__Orders__Customer__14E61A24");
 
                 entity.HasOne(d => d.Location)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.LocationId)
-                    .HasConstraintName("FK__Orders__Location__5F7E2DAC");
+                    .HasConstraintName("FK__Orders__Location__13F1F5EB");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__Orders__ProductI__6166761E");
+                    .HasConstraintName("FK__Orders__ProductI__15DA3E5D");
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product", "StoreApp");
 
-                entity.HasIndex(e => e.Name, "UQ__Product__737584F619F0E0C0")
+                entity.HasIndex(e => e.Name, "UQ__Product__737584F619450E3A")
                     .IsUnique();
 
                 entity.Property(e => e.Name)
@@ -102,12 +102,12 @@ namespace StoreApplication.DBClassLibrary
                 entity.HasOne(d => d.Location)
                     .WithMany(p => p.StoreInventories)
                     .HasForeignKey(d => d.LocationId)
-                    .HasConstraintName("FK__StoreInve__Locat__662B2B3B");
+                    .HasConstraintName("FK__StoreInve__Locat__1A9EF37A");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.StoreInventories)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__StoreInve__Produ__671F4F74");
+                    .HasConstraintName("FK__StoreInve__Produ__1B9317B3");
             });
 
             OnModelCreatingPartial(modelBuilder);

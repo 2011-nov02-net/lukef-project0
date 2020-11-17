@@ -9,10 +9,6 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 
         public int LocationId { get; set; }
         public string Name { get; set; }
-         
-
-        public Dictionary<Product, int> Quantity { get; set; }
-        public Dictionary<Product, decimal> Price { get; set; }
 
         public Location()
         {
@@ -23,8 +19,6 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
         {
             LocationId = locationId;
             Name = name;
-            Quantity = new Dictionary<Product, int>();
-            Price = new Dictionary<Product, decimal>();
         }
 
 

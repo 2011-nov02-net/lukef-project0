@@ -11,6 +11,8 @@ namespace ConsoleApp
 {
     class Program
     {
+        static DbContextOptions<Project0DBContext> s_dbContextOptions;
+        public IStoreRepository Store { get; }
 
         static void Main(string[] args)
         {
@@ -20,26 +22,56 @@ namespace ConsoleApp
             optionsBuilder.UseSqlServer(getConnectionString());
             optionsBuilder.LogTo(logStream.WriteLine, LogLevel.Information);
 
-            using var context = new Project0DBContext(optionsBuilder.Options);
+            s_dbContextOptions = optionsBuilder.Options;
 
-            //IApp app = new Application();
-            IStoreRepository storeRepository = new StoreRepository(context);
+            IStoreRepository storeRepository = new StoreRepository(s_dbContextOptions);
 
-            
+            Console.WriteLine("Welcome to my Store application!");
 
-            //Display5Customers();
-            Console.WriteLine();
+            int UserInput = chooseInput();
 
-            //UpdateCustomer();
-            //Display5Customers();
-            Console.WriteLine();
+            while (UserInput != 0)
+            {
+                switch (UserInput)
+                {
+                    case 1:
 
-            //InsertCustomer();
-            //Display5Customers();
+                        Console.WriteLine("Let's add a new customer!");
 
-            Console.WriteLine();
-            //DeleteCustomer();
-            //Display5Customers();
+                        string firstName = "";
+                        string lastName = "";
+                        string Email = "";
+
+                        Console.WriteLine("Enter a first name: ");
+                        firstName = Console.ReadLine();
+
+                        Console.WriteLine("Enter a last name: ");
+                        lastName = Console.ReadLine();
+
+                        Console.WriteLine("Enter a valid email");
+                        Email = Console.ReadLine();
+
+                        var newCustomer = new StoreApplication.ClassLibrary.StoreApplication.Design.Customer(firstName, lastName, Email);
+                        storeRepository.InsertCustomer(newCustomer);
+
+                        break;
+
+                    case 2:
+
+                        Console.WriteLine("Let's create a new order!");
+
+                        Console.WriteLine("Which location would you like to place an order? [Enter the number that is next to the name]");
+
+                        break;
+
+                    
+
+                }
+                    
+
+
+
+            }
 
 
 
@@ -63,63 +95,16 @@ namespace ConsoleApp
             return connectionString;
         }
 
-        //static void Display5Customers()
-        //{
-        //    using var context = new Project0DBContext(s_dbContextOptions);
+        static public int chooseInput()
+        {
+            int input = 0;
+            Console.WriteLine("Choose {0} to quit, {1} to add a new customer, and {2} to create an order!");
 
-        //    IQueryable<StoreApplication.DBClassLibrary.Customer> customers = context.Customers
-        //        .OrderBy(c => c.FirstName)
-        //        .Take(5);
+            input = int.Parse(Console.ReadLine());
+            return input;
+        }
 
-        //    foreach (StoreApplication.DBClassLibrary.Customer customer in customers)
-        //    {
-        //        Console.WriteLine($"{customer.CustomerId} - {customer.FirstName} {customer.LastName}");
-        //    }
-                
-        //}
 
-        //static void UpdateCustomer()
-        //{
-        //    using var context = new Project0DBContext(s_dbContextOptions);
-
-        //    StoreApplication.DBClassLibrary.Customer customer = context.Customers.OrderBy(x => x.FirstName).First();
-
-        //    customer.FirstName += ".";
-
-        //    context.SaveChanges();
-        //}
-
-        //static void InsertCustomer()
-        //{
-        //    using var context = new Project0DBContext(s_dbContextOptions);
-
-        //    var firstCustomer = context.Customers.OrderBy(c => c.FirstName).First();
-        //    string nameOfFirstCustomer = firstCustomer.FirstName;
-
-        //    var customer = new StoreApplication.DBClassLibrary.Customer()
-        //    {
-        //        FirstName = "Dave",
-        //        LastName = "Fisher",
-        //        Email = "dfisher@email.com"
-        //    };
-
-        //    context.Customers.Add(customer);
-
-        //    context.SaveChanges();
-
-        //}
-
-        //static void DeleteCustomer()
-        //{
-        //    using var context = new Project0DBContext(s_dbContextOptions);
-
-        //    var customer = context.Customers.Where(t => t.FirstName == "Dave").First();
-        //    context.Customers.Remove(customer);
-
-        //    context.SaveChanges();
-        //}
-
-       
 
     }
 }

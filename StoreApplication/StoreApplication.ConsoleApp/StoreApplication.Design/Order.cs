@@ -10,7 +10,7 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
         public int OrderId { get; set; }
         public Location Location { get; set; }
         public Customer Customer { get; set; }
-        public Dictionary<Product, int> Product { get; set; }
+        public Product Product { get; set; }
         public DateTime OrderTime { get ; set; }
         public int Quantity { get; set; }
 
@@ -19,12 +19,12 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 
         }
 
-        public Order(Location location , Customer customer, int quantity)
+        public Order(Location location , Customer customer,  int quantity)
         {
             Location = location;
             Customer = customer;
-            Product = customer.ShoppingCart;
             Quantity = quantity;
+            OrderTime = DateTime.Now;
         }
     }
 }
