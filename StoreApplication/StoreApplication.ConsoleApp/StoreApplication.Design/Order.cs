@@ -8,9 +8,9 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
     {
 
         public int OrderId { get; set; }
-        public Location Location { get; set; }
-        public Customer Customer { get; set; }
-        public Product Product { get; set; }
+        public int LocationId { get; set; }
+        public int CustomerId { get; set; }
+        public int ProductId { get; set; }
         public DateTime OrderTime { get ; set; }
         public int Quantity { get; set; }
 
@@ -19,10 +19,11 @@ namespace StoreApplication.ClassLibrary.StoreApplication.Design
 
         }
 
-        public Order(Location location , Customer customer,  int quantity)
+        public Order(int locationId , int customerId, int productId,  int quantity)
         {
-            Location = location;
-            Customer = customer;
+            LocationId = locationId;
+            CustomerId = customerId;
+            ProductId = productId;
             Quantity = quantity;
             OrderTime = DateTime.Now;
         }

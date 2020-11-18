@@ -66,10 +66,28 @@ namespace StoreApplication.DBClassLibrary.Repositories
                 Email = c.Email
             }).ToList();
 
-            Console.WriteLine(JsonConvert.SerializeObject(appCustomers));
+            //Console.WriteLine(JsonConvert.SerializeObject(appCustomers));
             
             
             return appCustomers;
+        }
+
+        public List<ClassLibrary.StoreApplication.Design.Order> GetOrders()
+        {
+            using var context = new Project0DBContext(_contextOptions);
+
+            var dbOrders = context.Orders.ToList();
+
+            var appOrders = dbOrders.Select(o => new ClassLibrary.StoreApplication.Design.Order()
+            {
+                OrderId = o.OrderId,
+                CustomerId = o.CustomerId,
+                LocationId = o.LocationId,
+                Quantity = o.Quantity
+            }
+            ).ToList();
+
+            return appOrders;
         }
 
         public ClassLibrary.StoreApplication.Design.Customer GetCustomerByName(string firstName, string lastName)
@@ -102,6 +120,23 @@ namespace StoreApplication.DBClassLibrary.Repositories
             }).Where(l => l.Name == name).First();
 
             return appLocations;
+        }
+
+        public ClassLibrary.StoreApplication.Design.Product GetProductByName(string name)
+        {
+            using var context = new Project0DBContext(_contextOptions);
+
+            var dbProducts = context.Products.ToList();
+
+            var appProducts = dbProducts.Select(p => new ClassLibrary.StoreApplication.Design.Product()
+            {
+                ProductId = p.ProductId,
+                Title = p.Name,
+                Price = p.Price
+            }
+            ).Where(p => p.Title == name).First();
+
+            return appProducts;
         }
 
         public ClassLibrary.StoreApplication.Design.Order GetOrderById(int id)
@@ -139,30 +174,29 @@ namespace StoreApplication.DBClassLibrary.Repositories
             ClassLibrary.StoreApplication.Design.Order testorder = new ClassLibrary.StoreApplication.Design.Order()
             {
                 OrderId = dbOrders.OrderId,
-                Customer = customer,
-                Location = location,
-                Product = product,
+                CustomerId = customer.CustomerId,
+                LocationId = location.LocationId,
+                ProductId = product.ProductId,
                 OrderTime = dbOrders.OrderTime,
                 Quantity = dbOrders.Quantity
             };
 
-            Console.WriteLine(JsonConvert.SerializeObject(testorder));
 
             return testorder;
 
 
         }
 
-        public List<ClassLibrary.StoreApplication.Design.Order> GetCustomerOrders(ClassLibrary.StoreApplication.Design.Customer customer)
+        public List<ClassLibrary.StoreApplication.Design.Order> GetCustomerOrders(int customerId)
         {
             using var context = new Project0DBContext(_contextOptions);
 
-            var dbCustomerOrders = context.Orders.ToList();
+            var dbCustomerOrders = context.Orders.Where(o => o.CustomerId == customerId).ToList();
 
-            var appCustomerOrders = dbCustomerOrders.Select(co => new ClassLibrary.StoreApplication.Design.Order()
+            var appCustomerOrders = dbCustomerOrders.Select(o => new ClassLibrary.StoreApplication.Design.Order()
             {
-                Customer = customer,
-                Quantity = co.Quantity,
+                LocationId = o.LocationId,
+                Quantity = o.Quantity
             }
             ).ToList();
             Console.WriteLine(JsonConvert.SerializeObject(appCustomerOrders));
@@ -170,15 +204,15 @@ namespace StoreApplication.DBClassLibrary.Repositories
             return appCustomerOrders;
         }
 
-        public List<ClassLibrary.StoreApplication.Design.Order> GetLocationOrders(ClassLibrary.StoreApplication.Design.Location location)
+        public List<ClassLibrary.StoreApplication.Design.Order> GetLocationOrders(int locationId)
         {
             using var context = new Project0DBContext(_contextOptions);
 
-            var dbCustomerOrders = context.Orders.ToList();
+            var dbCustomerOrders = context.Orders.Where(o => o.LocationId == locationId).ToList();
 
             var appLocationOrders = dbCustomerOrders.Select(co => new ClassLibrary.StoreApplication.Design.Order()
             {
-                Location = location,
+                LocationId = co.LocationId,
                 Quantity = co.Quantity,
             }
             ).ToList();
@@ -209,10 +243,10 @@ namespace StoreApplication.DBClassLibrary.Repositories
 
             var dbOrder = new Order()
             {
-                LocationId = order.Location.LocationId,
-                CustomerId = order.Customer.CustomerId,
+                LocationId = order.LocationId,
+                CustomerId = order.CustomerId,
+                ProductId = order.ProductId,
                 Quantity = order.Quantity
-
 
             };
 

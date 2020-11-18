@@ -9,14 +9,16 @@ namespace StoreApplication.DBClassLibrary.Repositories
     {
         List<Location> GetLocations();
         List<Customer> GetCustomers();
+        List<Order> GetOrders();
         Location GetLocationByName(string name);
+        Product GetProductByName(string name);
         List<Product> GetProducts();
         Customer GetCustomerByName(string FirstName, string LastName);
         void InsertCustomer(Customer customer);
         void InsertOrder(Order order);
         Order GetOrderById(int id);
         void UpdateLocationInventory(Location location, Product product);
-        List<Order> GetCustomerOrders(Customer customer);
-        List<Order> GetLocationOrders(Location location);
+        List<Order> GetCustomerOrders(int customerId);
+        List<Order> GetLocationOrders(int locationId);
     }
 }
