@@ -16,8 +16,4 @@
     <ProjectReference Include="..\StoreApplication.ConsoleApp\StoreApplication.ClassLibrary.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\" />
-  </ItemGroup>
-
 </Project>

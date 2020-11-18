@@ -36,6 +36,9 @@ namespace ConsoleApp
             {
                 switch (UserInput)
                 {
+                    ///<summary>
+                    /// Case 1: Adds a new Customer record to the Customer table
+                    /// </summary>
                     case 1:
                         Console.Clear();
 
@@ -64,6 +67,10 @@ namespace ConsoleApp
 
                         break;
 
+                    ///<summary>
+                    /// Case 2: Adds a new Order record to the Order table
+                    /// Recieves LocationId, CustomerId, ProductId, and Quantity
+                    /// </summary>
                     case 2:
                         Console.Clear();
 
@@ -112,6 +119,9 @@ namespace ConsoleApp
 
                         break;
 
+                    ///<summary>
+                    /// Case 3: Gets all orders based off of a CustomerId input
+                    /// </summary>
                     case 3:
                         Console.Clear();
 
@@ -140,6 +150,9 @@ namespace ConsoleApp
 
                         break;
 
+                    ///<summary>
+                    /// Case 4: Gets all orders based off of a LocationId input
+                    /// </summary>
                     case 4:
                         Console.Clear();
 
@@ -174,7 +187,7 @@ namespace ConsoleApp
                 UserInput = chooseInput();
 
             }
-
+ 
             static string getConnectionString()
             {
                 string path = "../../../../../../DBConnectionString.json";
@@ -192,6 +205,10 @@ namespace ConsoleApp
                 string connectionString = JsonSerializer.Deserialize<string>(json);
                 return connectionString;
             }
+
+            /// <summary>
+            /// Receives input from the user to perform an action in the console app
+            /// </summary>
 
             static int chooseInput()
             {

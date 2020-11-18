@@ -20,6 +20,10 @@ namespace StoreApplication.DBClassLibrary.Repositories
         }
 
 
+        /// <summary>
+        /// Gets all Locations from the Location table in the database
+        /// </summary>
+        /// <returns></returns>
         public List<ClassLibrary.StoreApplication.Design.Location> GetLocations()
         {
             using var context = new Project0DBContext(_contextOptions);
@@ -36,6 +40,10 @@ namespace StoreApplication.DBClassLibrary.Repositories
             return appLocations;
         }
 
+        /// <summary>
+        /// Gets all Products from the Product table in the database
+        /// </summary>
+        /// <returns></returns>
         public List<ClassLibrary.StoreApplication.Design.Product> GetProducts()
         {
             using var context = new Project0DBContext(_contextOptions);
@@ -52,6 +60,10 @@ namespace StoreApplication.DBClassLibrary.Repositories
             return appProducts;
         }
 
+        /// <summary>
+        /// Gets all Customers from the Customer table in the database
+        /// </summary>
+        /// <returns></returns>
         public List<ClassLibrary.StoreApplication.Design.Customer> GetCustomers()
         {
             using var context = new Project0DBContext(_contextOptions);
@@ -65,13 +77,15 @@ namespace StoreApplication.DBClassLibrary.Repositories
                 LastName = c.LastName,
                 Email = c.Email
             }).ToList();
-
-            //Console.WriteLine(JsonConvert.SerializeObject(appCustomers));
             
             
             return appCustomers;
         }
 
+        /// <summary>
+        /// Gets all Orders from the Order table in the database
+        /// </summary>
+        /// <returns></returns>
         public List<ClassLibrary.StoreApplication.Design.Order> GetOrders()
         {
             using var context = new Project0DBContext(_contextOptions);
@@ -90,6 +104,12 @@ namespace StoreApplication.DBClassLibrary.Repositories
             return appOrders;
         }
 
+        /// <summary>
+        /// Gets all Customers that match a specific First name and Last name
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
         public ClassLibrary.StoreApplication.Design.Customer GetCustomerByName(string firstName, string lastName)
         {
             using var context = new Project0DBContext(_contextOptions);
@@ -103,10 +123,14 @@ namespace StoreApplication.DBClassLibrary.Repositories
                 LastName = c.LastName,
                 Email = c.Email
             }).Where(c => c.FirstName == firstName && c.LastName == lastName).First();
-            Console.WriteLine(JsonConvert.SerializeObject(appCustomers));
             return appCustomers;
         }
 
+        /// <summary>
+        /// Gets all Locations that match a specific Location name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public ClassLibrary.StoreApplication.Design.Location GetLocationByName(string name)
         {
             using var context = new Project0DBContext(_contextOptions);
@@ -122,6 +146,11 @@ namespace StoreApplication.DBClassLibrary.Repositories
             return appLocations;
         }
 
+        /// <summary>
+        /// Gets all Products that match a specific Product name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public ClassLibrary.StoreApplication.Design.Product GetProductByName(string name)
         {
             using var context = new Project0DBContext(_contextOptions);
@@ -139,6 +168,11 @@ namespace StoreApplication.DBClassLibrary.Repositories
             return appProducts;
         }
 
+        /// <summary>
+        /// Gets an Order based off of a specific OrderId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ClassLibrary.StoreApplication.Design.Order GetOrderById(int id)
         {
             using var context = new Project0DBContext(_contextOptions);
@@ -187,6 +221,11 @@ namespace StoreApplication.DBClassLibrary.Repositories
 
         }
 
+        /// <summary>
+        /// Gets all orders that relate to a Customer
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public List<ClassLibrary.StoreApplication.Design.Order> GetCustomerOrders(int customerId)
         {
             using var context = new Project0DBContext(_contextOptions);
@@ -199,11 +238,15 @@ namespace StoreApplication.DBClassLibrary.Repositories
                 Quantity = o.Quantity
             }
             ).ToList();
-            Console.WriteLine(JsonConvert.SerializeObject(appCustomerOrders));
 
             return appCustomerOrders;
         }
 
+        /// <summary>
+        /// Gets all orders that relate to a Location
+        /// </summary>
+        /// <param name="locationId"></param>
+        /// <returns></returns>
         public List<ClassLibrary.StoreApplication.Design.Order> GetLocationOrders(int locationId)
         {
             using var context = new Project0DBContext(_contextOptions);
@@ -217,10 +260,13 @@ namespace StoreApplication.DBClassLibrary.Repositories
             }
             ).ToList();
 
-            Console.WriteLine(JsonConvert.SerializeObject(appLocationOrders));
             return appLocationOrders;
         }
 
+        /// <summary>
+        /// Creates a new Customer record in the Customer database table
+        /// </summary>
+        /// <param name="customer"></param>
         public void InsertCustomer(ClassLibrary.StoreApplication.Design.Customer customer)
         {
             using var context = new Project0DBContext(_contextOptions);
@@ -237,6 +283,10 @@ namespace StoreApplication.DBClassLibrary.Repositories
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Creates a new Order record in the Order database table
+        /// </summary>
+        /// <param name="order"></param>
         public void InsertOrder(ClassLibrary.StoreApplication.Design.Order order)
         {
             using var context = new Project0DBContext(_contextOptions);
