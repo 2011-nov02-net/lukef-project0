@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StoreApplication.ClassLibrary.StoreApplication.Design
 {
-    class StoreInventory
+    public class StoreInventory
     {
         public int StoreInventoryId { get; set; }
         public int LocationId { get; set; }

@@ -113,6 +113,7 @@ namespace ConsoleApp
 
                         quantity = int.Parse(Console.ReadLine());
 
+
                         var newOrder = new StoreApplication.ClassLibrary.StoreApplication.Design.Order(locationId, customerId, productId, quantity);
 
                         storeRepository.InsertOrder(newOrder);
@@ -181,6 +182,34 @@ namespace ConsoleApp
 
                         break;
 
+                    case 5:
+                        Console.Clear();
+
+                        Console.WriteLine("Let's search for a customer!");
+
+                        string FirstName = "";
+                        string LastName = "";
+
+                        Console.WriteLine("Enter a first name:");
+
+                        FirstName = Console.ReadLine();
+
+                        Console.WriteLine("Enter a last name:");
+
+                        LastName = Console.ReadLine();
+
+                        try
+                        {
+                            var customer = storeRepository.GetCustomerByName(FirstName, LastName);
+                            Console.WriteLine($"Customer ID: {customer.CustomerId} | First Name: {customer.FirstName} | Last Name: {customer.LastName} | Email: {customer.Email}" );
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("Sorry! There is no customer with that name!");
+                        }
+
+                        break;
+
 
                 }
 
@@ -213,9 +242,23 @@ namespace ConsoleApp
             static int chooseInput()
             {
                 int input = 0;
-                Console.WriteLine("Choose {0} to quit, {1} to add a new customer, {2} to create an order, {3} to search for customer orders, and {4} to search of location orders!");
-
-                input = int.Parse(Console.ReadLine());
+                Console.WriteLine("Choose {0} to quit");
+                Console.WriteLine("Choose {1} to add a new customer");
+                Console.WriteLine("Choose {2} to create an order");
+                Console.WriteLine("Choose {3} to search for customer orders");
+                Console.WriteLine("Choose {4} to search for location orders");
+                Console.WriteLine("Choose {5} to search for a customer by name");
+                try
+                {
+                    input = int.Parse(Console.ReadLine());
+                } catch(FormatException)
+                {
+                    Console.Clear();
+                    Console.WriteLine("That is an incorrect command! Please try again.");
+                    
+                    return chooseInput();
+                }
+                
                 return input;
             }
 

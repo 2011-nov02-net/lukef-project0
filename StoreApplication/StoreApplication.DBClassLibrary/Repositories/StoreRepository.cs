@@ -234,7 +234,11 @@ namespace StoreApplication.DBClassLibrary.Repositories
 
             var appCustomerOrders = dbCustomerOrders.Select(o => new ClassLibrary.StoreApplication.Design.Order()
             {
+                OrderId = o.OrderId,
+                CustomerId = o.CustomerId,
                 LocationId = o.LocationId,
+                ProductId = o.ProductId,
+                OrderTime = o.OrderTime,
                 Quantity = o.Quantity
             }
             ).ToList();
@@ -255,7 +259,11 @@ namespace StoreApplication.DBClassLibrary.Repositories
 
             var appLocationOrders = dbCustomerOrders.Select(co => new ClassLibrary.StoreApplication.Design.Order()
             {
+                OrderId = co.OrderId,
+                CustomerId = co.CustomerId,
                 LocationId = co.LocationId,
+                ProductId = co.ProductId,
+                OrderTime = co.OrderTime,
                 Quantity = co.Quantity,
             }
             ).ToList();
