@@ -1,7 +1,5 @@
 ﻿using StoreApplication.ClassLibrary.StoreApplication.Design;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConsoleApp
 {

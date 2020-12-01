@@ -1,8 +1,5 @@
 ﻿using StoreApplication.ClassLibrary.StoreApplication.Design;
 using StoreApplication.DBClassLibrary.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConsoleApp
 {
