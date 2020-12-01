@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using StoreApplication.ClassLibrary.StoreApplication.Design;
 
 namespace StoreApplication.DBClassLibrary.Repositories
