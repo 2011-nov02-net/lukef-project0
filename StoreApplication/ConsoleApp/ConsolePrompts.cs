@@ -1,7 +1,7 @@
 ﻿using StoreApplication.ClassLibrary.StoreApplication.Design;
 using System;
-using System.Collections.Generic;
-using System.Text;
+//using System.Collections.Generic;
+//using System.Text;
 
 namespace ConsoleApp
 {

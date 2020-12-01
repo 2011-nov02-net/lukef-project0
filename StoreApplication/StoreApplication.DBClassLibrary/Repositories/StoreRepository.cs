@@ -2,10 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using StoreApplication.ClassLibrary.StoreApplication.Design;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace StoreApplication.DBClassLibrary.Repositories
 {
