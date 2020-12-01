@@ -1,7 +1,10 @@
 ﻿using StoreApplication.ClassLibrary.StoreApplication.Design;
 using System;
+<<<<<<< HEAD
 //using System.Collections.Generic;
 //using System.Text;
+=======
+>>>>>>> 176ff78dbc1db3030f7818d64bdcd4bff191644a
 
 namespace ConsoleApp
 {

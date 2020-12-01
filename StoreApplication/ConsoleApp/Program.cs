@@ -3,7 +3,10 @@ using Microsoft.Extensions.Logging;
 using StoreApplication.DBClassLibrary;
 using StoreApplication.DBClassLibrary.Repositories;
 using System;
+<<<<<<< HEAD
 //using System.Collections.Generic;
+=======
+>>>>>>> 176ff78dbc1db3030f7818d64bdcd4bff191644a
 using System.IO;
 using System.Text.Json;
 //using StoreApplication.ClassLibrary.StoreApplication.Design;
